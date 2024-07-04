@@ -62,14 +62,15 @@ const plugin: JupyterFrontEndPlugin<void> = {
         };
 
         // fetch the JSON manifest and extract file URLs
-        let fileUrls: string[] = [];
+        let fileEntries: { url: string }[] = [];
         try {
           const response = await fetch(datasetUrl);
           if (response.status !== 200) {
             throw new Error(`Failed to fetch dataset URL: ${datasetUrl}`);
           }
-          fileUrls = await response.json();
-          console.log("Fetched file URLs:", fileUrls);
+          const manifest = await response.json();
+          fileEntries = manifest.map((entry: any) => ({ url: entry.url }));
+          console.log("Fetched file entries:", fileEntries);
         } catch (err: unknown) {
           if (err instanceof Error) {
             return showErrorMessage(trans.__('Cannot fetch dataset manifest'), err);
@@ -130,14 +131,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
         const [match] = matches;
         // handle opening the URL with the Notebook 7 separately
         if (match?.includes('/notebooks') || match?.includes('/edit')) {
-          const [first] = fileUrls;
-          await fetchAndOpen(first);
+          const [first] = fileEntries;
+          await fetchAndOpen(first.url);
           handleRoute();
           return;
         }
 
         app.restored.then(async () => {
-          await Promise.all(fileUrls.map(url => fetchAndOpen(String(url)))); // Ensure url is converted to string
+          await Promise.all(fileEntries.map(entry => fetchAndOpen(entry.url)));
           handleRoute();
         });
       }

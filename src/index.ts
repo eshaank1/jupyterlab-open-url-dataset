@@ -6,7 +6,7 @@ import {
 
 import { showErrorMessage } from '@jupyterlab/apputils';
 
-import { PageConfig, PathExt, URLExt } from '@jupyterlab/coreutils';
+import { PageConfig, URLExt } from '@jupyterlab/coreutils';
 
 import { IDefaultFileBrowser } from '@jupyterlab/filebrowser';
 
@@ -69,6 +69,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             throw new Error(`Failed to fetch dataset URL: ${datasetUrl}`);
           }
           fileUrls = await response.json();
+          console.log("Fetched file URLs:", fileUrls);
         } catch (err: unknown) {
           if (err instanceof Error) {
             return showErrorMessage(trans.__('Cannot fetch dataset manifest'), err);
@@ -98,9 +99,10 @@ const plugin: JupyterFrontEndPlugin<void> = {
           // upload the content of the file to the server
           try {
             // FIXME: handle Content-Disposition: https://github.com/jupyterlab/jupyterlab/issues/11531
-            const name = PathExt.basename(url);
+            const name = url.substring(url.lastIndexOf('/') + 1); // extract file name
             const file = new File([blob], name, { type });
             const model = await browser?.model.upload(file);
+            console.log("Uploaded file model:", model);
             if (!model || typeof model.path !== 'string') {
               throw new Error('Failed to upload the file or invalid file path received.');
             }
@@ -135,7 +137,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         }
 
         app.restored.then(async () => {
-          await Promise.all(fileUrls.map(url => fetchAndOpen(url)));
+          await Promise.all(fileUrls.map(url => fetchAndOpen(String(url)))); // Ensure url is converted to string
           handleRoute();
         });
       }

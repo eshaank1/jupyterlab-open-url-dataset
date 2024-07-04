@@ -46,21 +46,36 @@ const plugin: JupyterFrontEndPlugin<void> = {
         }
 
         const urlParams = new URLSearchParams(search);
-        const paramName = 'fromURL';
-        const paths = urlParams.getAll(paramName);
-        if (!paths || paths.length === 0) {
+        const paramName = 'datasetURL';
+        const datasetUrl = urlParams.get(paramName);
+        if (!datasetUrl || datasetUrl.length === 0) {
           return;
         }
-        const urls = paths.map(path => decodeURIComponent(path));
 
-        // handle the route and remove the fromURL parameter
+        // handle the route and remove the datasetURL parameter
         const handleRoute = () => {
           const url = new URL(URLExt.join(PageConfig.getBaseUrl(), request));
-          // only remove the fromURL parameter
+          // only remove the datasetURL parameter
           url.searchParams.delete(paramName);
           const { pathname, search } = url;
           router.navigate(`${pathname}${search}`, { skipRouting: true });
         };
+
+        // fetch the JSON manifest and extract file URLs
+        let fileUrls: string[] = [];
+        try {
+          const response = await fetch(datasetUrl);
+          if (response.status !== 200) {
+            throw new Error(`Failed to fetch dataset URL: ${datasetUrl}`);
+          }
+          fileUrls = await response.json();
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            return showErrorMessage(trans.__('Cannot fetch dataset manifest'), err);
+          } else {
+            return showErrorMessage(trans.__('Cannot fetch dataset manifest'), String(err));
+          }
+        }
 
         // fetch the file from the URL and open it with the docmanager
         const fetchAndOpen = async (url: string): Promise<void> => {
@@ -72,7 +87,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             const req = await fetch(url);
             blob = await req.blob();
             type = req.headers.get('Content-Type') ?? '';
-          } catch (err) {
+          } catch (err: unknown) {
             const reason = err as any;
             if (reason.response && reason.response.status !== 200) {
               reason.message = trans.__('Could not open URL: %1', url);
@@ -86,8 +101,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
             const name = PathExt.basename(url);
             const file = new File([blob], name, { type });
             const model = await browser?.model.upload(file);
-            if (!model) {
-              return;
+            if (!model || typeof model.path !== 'string') {
+              throw new Error('Failed to upload the file or invalid file path received.');
             }
             return commands.execute('docmanager:open', {
               path: model.path,
@@ -95,25 +110,32 @@ const plugin: JupyterFrontEndPlugin<void> = {
                 ref: '_noref'
               }
             });
-          } catch (error) {
-            return showErrorMessage(
-              trans._p('showErrorMessage', 'Upload Error'),
-              error as Error
-            );
+          } catch (error: unknown) {
+            if (error instanceof Error) {
+              return showErrorMessage(
+                trans._p('showErrorMessage', 'Upload Error'),
+                error
+              );
+            } else {
+              return showErrorMessage(
+                trans._p('showErrorMessage', 'Upload Error'),
+                String(error)
+              );
+            }
           }
         };
 
         const [match] = matches;
         // handle opening the URL with the Notebook 7 separately
         if (match?.includes('/notebooks') || match?.includes('/edit')) {
-          const [first] = urls;
+          const [first] = fileUrls;
           await fetchAndOpen(first);
           handleRoute();
           return;
         }
 
         app.restored.then(async () => {
-          await Promise.all(urls.map(url => fetchAndOpen(url)));
+          await Promise.all(fileUrls.map(url => fetchAndOpen(url)));
           handleRoute();
         });
       }

@@ -1,11 +1,11 @@
-# jupyterlab-open-url-parameter
+# jupyterlab-open-url-dataset
 
-[![Extension status](https://img.shields.io/badge/status-ready-success 'ready to be used')](https://jupyterlab-contrib.github.io/)
-[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/actions/workflows/build.yml)
-[![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlab-open-url-param.readthedocs.io/en/latest/lite/lab)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyterlab-contrib/jupyterlab-open-url-parameter/main?urlpath=lab)
+[![Extension status](https://img.shields.io/badge/status-draft-orange 'in development')](https://google.com)
+[![Github Actions Status](https://github.com/eshaank1/jupyterlab-open-url-dataset/workflows/Build/badge.svg)](https://github.com/eshaank1/jupyterlab-open-url-dataset/actions/workflows/build.yml)
+[![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://google.com)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/eshaank1/jupyterlab-open-url-dataset/main?urlpath=lab)
 
-JupyterLab extension to open files passed via a URL parameter.
+JupyterLab extension to open files from a dataset manifest passed via a URL parameter.
 
 ## Requirements
 
@@ -16,25 +16,22 @@ JupyterLab extension to open files passed via a URL parameter.
 To install the extension, run the following command:
 
 ```bash
-pip install jupyterlab-open-url-parameter
+pip install jupyterlab-open-url-dataset
 ```
 
 ## Usage
 
-The extension will open a file passed via a URL parameter. The URL parameter is `fromURL`. It is possible to pass multiple files via the `fromURL` parameter. The files will be opened in the order they are passed.
+The extension will open all files from a dataset manifest passed via a URL parameter. The URL parameter is `datasetURL`. The files will be opened in the order they are listed on the manifest.
 
-For example if you would like to open a notebook and a csv file:
+For example if you would like to open a dataset manifest consisting of two images:
 
-- https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
-- https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv
+- https://g-062a3c.0ed28.75bc.data.globus.org/public/sample-manifest.json
 
-You can append the following to the URL of your JupyterLab instance: `?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv`
+You can append the following to the URL of your JupyterLab instance: `?datasetURL=https://g-062a3c.0ed28.75bc.data.globus.org/public/sample-manifest.json`
 
 Which will result in the following URL when JupyterLab is running locally:
 
-http://localhost:8888/lab?fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/data/iris.csv&fromURL=https://raw.githubusercontent.com/jupyterlab/jupyterlab-demo/master/notebooks/Lorenz.ipynb
-
-https://user-images.githubusercontent.com/591645/230422671-c12761e9-9b9f-4d23-ab66-344568c6b0a5.mp4
+http://localhost:8888/lab?datasetURL=https://g-062a3c.0ed28.75bc.data.globus.org/public/sample-manifest.json
 
 ℹ️ This extension uses the command `filebrowser:open-url` available in JupyterLab by default.
 
@@ -42,14 +39,12 @@ https://user-images.githubusercontent.com/591645/230422671-c12761e9-9b9f-4d23-ab
 
 The extension can also be used in [JupyterLite](https://jupyterlite.readthedocs.io). Check out the documentation to learn more about adding extensions to JupyterLite.
 
-https://user-images.githubusercontent.com/591645/230426591-04b5155d-3297-4401-b979-d86561188c17.mp4
-
 ## Uninstall
 
 To remove the extension, run the following command:
 
 ```bash
-pip uninstall jupyterlab-open-url-parameter
+pip uninstall jupyterlab-open-url-dataset
 ```
 
 ## Contributing
@@ -64,7 +59,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the jupyterlab_open_url_parameter directory
+# Change directory to the jupyterlab_open_url_dataset directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
@@ -93,12 +88,12 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab-open-url-parameter
+pip uninstall jupyterlab-open-url-dataset
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `jupyterlab-open-url-parameter` within that folder.
+folder is located. Then you can remove the symlink named `jupyterlab-open-url-dataset` within that folder.
 
 ### Packaging the extension
 

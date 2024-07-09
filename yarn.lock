@@ -3268,9 +3268,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jupyterlab-open-url-parameter@workspace:.":
+"jupyterlab-open-url-dataset@workspace:.":
   version: 0.0.0-use.local
-  resolution: "jupyterlab-open-url-parameter@workspace:."
+  resolution: "jupyterlab-open-url-dataset@workspace:."
   dependencies:
     "@jupyterlab/application": ^4.0.10
     "@jupyterlab/apputils": ^4.1.10

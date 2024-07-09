@@ -4,6 +4,6 @@ from ._version import __version__
 def _jupyter_labextension_paths():
     return [{
         "src": "labextension",
-        "dest": "jupyterlab-open-url-parameter"
+        "dest": "jupyterlab-open-url-dataset"
     }]
 

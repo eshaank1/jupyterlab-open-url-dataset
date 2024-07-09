@@ -8,7 +8,7 @@ master_doc = "index"
 source_suffix = ".md"
 
 # General information about the project.
-project = "jupyterlab-open-url-parameter"
+project = "jupyterlab-open-url-dataset"
 author = "JupyterLab Contrib Team"
 
 exclude_patterns = []

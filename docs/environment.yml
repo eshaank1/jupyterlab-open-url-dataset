@@ -1,4 +1,4 @@
-name: jupyterlab-open-url-parameter
+name: jupyterlab-open-url-dataset
 channels:
 - conda-forge
 dependencies:

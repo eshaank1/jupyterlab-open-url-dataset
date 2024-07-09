@@ -18,10 +18,10 @@ import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 const URL_PATTERN = new RegExp('/(lab|notebooks|edit)/?');
 
 /**
- * Initialization data for the jupyterlab-open-url-parameter extension.
+ * Initialization data for the jupyterlab-open-url-dataset extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: 'jupyterlab-open-url-parameter:plugin',
+  id: 'jupyterlab-open-url-dataset:plugin',
   autoStart: true,
   requires: [IRouter, ITranslator],
   optional: [IDefaultFileBrowser],

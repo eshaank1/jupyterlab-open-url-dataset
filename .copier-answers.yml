@@ -1,14 +1,13 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v4.2.4
+_commit: v4.3.3
 _src_path: https://github.com/jupyterlab/extension-template
 author_email: ''
-author_name: JupyterLab Contrib Team
+author_name: Eshaan Kumar
 has_binder: true
 has_settings: false
 kind: frontend
-labextension_name: jupyterlab-open-url-parameter
-project_short_description: JupyterLab extension to open files passed via a URL parameter
-python_name: jupyterlab_open_url_parameter
-repository: https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter.git
+labextension_name: jupyterlab-open-url-dataset
+project_short_description: JupyterLab extension to open files from a dataset manifest passed via a URL parameter
+python_name: jupyterlab_open_url_dataset
+repository: https://github.com/eshaank1/jupyterlab-open-url-dataset.git
 test: false
-

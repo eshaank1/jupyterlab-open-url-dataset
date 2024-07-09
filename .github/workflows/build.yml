@@ -32,7 +32,7 @@ jobs:
         python -m pip install .[test]
 
         jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyterlab-open-url-parameter.*OK"
+        jupyter labextension list 2>&1 | grep -ie "jupyterlab-open-url-dataset.*OK"
         python -m jupyterlab.browser_check
 
     - name: Package the extension
@@ -41,13 +41,13 @@ jobs:
 
         pip install build
         python -m build
-        pip uninstall -y "jupyterlab_open_url_parameter" jupyterlab
+        pip uninstall -y "jupyterlab_open_url_dataset" jupyterlab
 
     - name: Upload extension packages
       uses: actions/upload-artifact@v3
       with:
         name: extension-artifacts
-        path: dist/jupyterlab_open_url_parameter*
+        path: dist/jupyterlab_open_url_dataset*
         if-no-files-found: error
 
   test_isolated:
@@ -70,11 +70,11 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install "jupyterlab>=4.0.0,<5" jupyterlab_open_url_parameter*.whl
+        pip install "jupyterlab>=4.0.0,<5" jupyterlab_open_url_dataset*.whl
 
 
         jupyter labextension list
-        jupyter labextension list 2>&1 | grep -ie "jupyterlab-open-url-parameter.*OK"
+        jupyter labextension list 2>&1 | grep -ie "jupyterlab-open-url-dataset.*OK"
         python -m jupyterlab.browser_check --no-browser-test
 
 

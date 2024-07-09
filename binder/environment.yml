@@ -1,10 +1,10 @@
-# a mybinder.org-ready environment for demoing jupyterlab_open_url_parameter
+# a mybinder.org-ready environment for demoing jupyterlab_open_url_dataset
 # this environment may also be used locally on Linux/MacOS/Windows, e.g.
 #
 #   conda env update --file binder/environment.yml
-#   conda activate jupyterlab-open-url-parameter-demo
+#   conda activate jupyterlab-open-url-dataset-demo
 #
-name: jupyterlab-open-url-parameter-demo
+name: jupyterlab-open-url-dataset-demo
 
 channels:
   - conda-forge

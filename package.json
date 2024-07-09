@@ -1,19 +1,19 @@
 {
-    "name": "jupyterlab-open-url-parameter",
+    "name": "jupyterlab-open-url-dataset",
     "version": "0.3.0",
-    "description": "JupyterLab extension to open files passed via a URL parameter",
+    "description": "JupyterLab extension to open files from a dataset manifest passed via a URL parameter",
     "keywords": [
         "jupyter",
         "jupyterlab",
         "jupyterlab-extension"
     ],
-    "homepage": "https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter",
+    "homepage": "https://github.com/eshaank1/jupyterlab-open-url-dataset",
     "bugs": {
-        "url": "https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter/issues"
+        "url": "https://github.com/eshaank1/jupyterlab-open-url-dataset/issues"
     },
     "license": "BSD-3-Clause",
     "author": {
-        "name": "JupyterLab Contrib Team",
+        "name": "Eshaan Kumar",
         "email": ""
     },
     "files": [
@@ -26,7 +26,7 @@
     "style": "style/index.css",
     "repository": {
         "type": "git",
-        "url": "https://github.com/jupyterlab-contrib/jupyterlab-open-url-parameter.git"
+        "url": "https://github.com/eshaank1/jupyterlab-open-url-dataset.git"
     },
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -37,7 +37,7 @@
         "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
         "clean": "jlpm clean:lib",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
-        "clean:labextension": "rimraf jupyterlab_open_url_parameter/labextension jupyterlab_open_url_parameter/_version.py",
+        "clean:labextension": "rimraf jupyterlab_open_url_dataset/labextension jupyterlab_open_url_dataset/_version.py",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
         "eslint": "jlpm eslint:check --fix",
@@ -97,7 +97,7 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlab_open_url_parameter/labextension"
+        "outputDir": "jupyterlab_open_url_dataset/labextension"
     },
     "eslintConfig": {
         "extends": [

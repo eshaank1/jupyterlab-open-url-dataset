@@ -3,4 +3,4 @@ node_modules
 **/lib
 **/package.json
 !/package.json
-jupyterlab_open_url_parameter
+jupyterlab_open_url_dataset

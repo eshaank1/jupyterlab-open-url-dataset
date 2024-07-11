@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jupyterlab_open_url_dataset"
-version = "0.1.0"
+version = "0.1.1"
 description = "JupyterLab extension to open files from a dataset manifest passed via a URL parameter."
 readme = "README.md"
 license = { file = "LICENSE" }

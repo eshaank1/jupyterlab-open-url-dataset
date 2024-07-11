@@ -70,12 +70,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
           }
           const manifest = await response.json();
           fileEntries = manifest.map((entry: any) => ({ url: entry.url }));
-          console.log("Fetched file entries:", fileEntries);
+          console.log('Fetched file entries:', fileEntries);
         } catch (err: unknown) {
           if (err instanceof Error) {
-            return showErrorMessage(trans.__('Cannot fetch dataset manifest'), err);
+            return showErrorMessage(
+              trans.__('Cannot fetch dataset manifest'),
+              err
+            );
           } else {
-            return showErrorMessage(trans.__('Cannot fetch dataset manifest'), String(err));
+            return showErrorMessage(
+              trans.__('Cannot fetch dataset manifest'),
+              String(err)
+            );
           }
         }
 
@@ -103,9 +109,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
             const name = url.substring(url.lastIndexOf('/') + 1); // extract file name
             const file = new File([blob], name, { type });
             const model = await browser?.model.upload(file);
-            console.log("Uploaded file model:", model);
+            console.log('Uploaded file model:', model);
             if (!model || typeof model.path !== 'string') {
-              throw new Error('Failed to upload the file or invalid file path received.');
+              throw new Error(
+                'Failed to upload the file or invalid file path received.'
+              );
             }
             return commands.execute('docmanager:open', {
               path: model.path,
